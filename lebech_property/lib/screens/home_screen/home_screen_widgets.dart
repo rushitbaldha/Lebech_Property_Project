@@ -4,6 +4,7 @@ import 'package:get/get.dart';
 import 'package:lebech_property/common/constant/app_colors.dart';
 import 'package:lebech_property/common/constant/app_images.dart';
 import 'package:lebech_property/controllers/home_screen_controller/home_screen_controller.dart';
+import 'package:lebech_property/screens/category_property_screen/category_property_screen.dart';
 import 'package:youtube_player_flutter/youtube_player_flutter.dart';
 
 class BannerModule extends StatelessWidget {
@@ -334,13 +335,18 @@ class NewListingsModule extends StatelessWidget {
               ),
             ),
           ),
-          const Expanded(
+          Expanded(
             flex: 20,
-            child: Text(
-              'View All',
-              textAlign: TextAlign.end,
-              style: TextStyle(
-                color: Colors.grey,
+            child: GestureDetector(
+              onTap: () {
+                Get.to(()=> CategoryPropertyScreen());
+              },
+              child: const Text(
+                'View All',
+                textAlign: TextAlign.end,
+                style: TextStyle(
+                  color: Colors.grey,
+                ),
               ),
             ),
           ),

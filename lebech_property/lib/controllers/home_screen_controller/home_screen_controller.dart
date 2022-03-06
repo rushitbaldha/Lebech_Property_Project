@@ -9,7 +9,6 @@ class HomeScreenController extends GetxController {
   String ytUrl = "https://www.youtube.com/watch?v=462shM6Uoeg";
 
   void runYoutubeVideo() {
-    print('runYoutubeVideo Start :::::');
     youtubePlayerController = YoutubePlayerController(
       initialVideoId: YoutubePlayer.convertUrlToId(ytUrl)!,
       flags: const YoutubePlayerFlags(
@@ -18,7 +17,6 @@ class HomeScreenController extends GetxController {
         autoPlay: false,
       ),
     );
-    print('runYoutubeVideo End :::::');
   }
 
   @override
