@@ -4,7 +4,7 @@ import 'package:get/get.dart';
 import 'package:lebech_property/common/constant/app_colors.dart';
 import 'package:lebech_property/common/constant/app_images.dart';
 import 'package:lebech_property/controllers/home_screen_controller/home_screen_controller.dart';
-
+import 'package:youtube_player_flutter/youtube_player_flutter.dart';
 
 class BannerModule extends StatelessWidget {
   BannerModule({Key? key}) : super(key: key);
@@ -223,7 +223,9 @@ class NewProjectsModule extends StatelessWidget {
 }
 
 class VideoGalleryModule extends StatelessWidget {
-  const VideoGalleryModule({Key? key}) : super(key: key);
+  Widget player;
+  VideoGalleryModule({Key? key, required this.player}) : super(key: key);
+  final homeScreenController = Get.find<HomeScreenController>();
 
   @override
   Widget build(BuildContext context) {
@@ -236,6 +238,18 @@ class VideoGalleryModule extends StatelessWidget {
         Container(
           height: 180,
           color: Colors.grey,
+          child: player,
+          // child: YoutubePlayerBuilder(
+          //   player: YoutubePlayer(
+          //     controller: homeScreenController.youtubePlayerController!,
+          //   ),
+          //   builder: (context, player) {
+          //     return SizedBox(
+          //       height: 180,
+          //       child: player,
+          //     );
+          //   },
+          // ),
         ),
       ],
     );
