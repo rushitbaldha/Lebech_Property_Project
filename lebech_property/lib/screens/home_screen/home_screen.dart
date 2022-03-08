@@ -24,28 +24,32 @@ class HomeScreen extends StatelessWidget {
           appBar: customAppBar(title: 'Home'),
           // drawer: CustomAppDrawer(),
 
-          body: Padding(
-            padding: const EdgeInsets.only(top: 5),
-            child: SingleChildScrollView(
-              child: Column(
-                children: [
-                  BannerModule(),
-                  const SizedBox(height: 5),
-                  BannerIndicatorModule(),
-                  const SizedBox(height: 10),
-                  const NewProjectsModule(),
-                  const SizedBox(height: 20),
-                  VideoGalleryModule(player: player),
-                  const SizedBox(height: 20),
-                  const NewListingsModule(),
-                  const SizedBox(height: 20),
-                  const FeaturedPropertiesModule(),
-                  const SizedBox(height: 20),
-                  const FavouritePropertiesModule(),
-                  const SizedBox(height: 20),
-                ],
+          body: Obx(
+              () => homeScreenController.isLoading.value
+              ? const Center(child: CircularProgressIndicator())
+              : Padding(
+                padding: const EdgeInsets.only(top: 5),
+                child: SingleChildScrollView(
+                  child: Column(
+                    children: [
+                      BannerModule(),
+                      const SizedBox(height: 5),
+                      BannerIndicatorModule(),
+                      const SizedBox(height: 10),
+                      const NewProjectsModule(),
+                      const SizedBox(height: 20),
+                      VideoGalleryModule(player: player),
+                      const SizedBox(height: 20),
+                      const NewListingsModule(),
+                      const SizedBox(height: 20),
+                      const FeaturedPropertiesModule(),
+                      const SizedBox(height: 20),
+                      const FavouritePropertiesModule(),
+                      const SizedBox(height: 20),
+                    ],
+                  ),
+                ),
               ),
-            ),
           ),
         );
       },

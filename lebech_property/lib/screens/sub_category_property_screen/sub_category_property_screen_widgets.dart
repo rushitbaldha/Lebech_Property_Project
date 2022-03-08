@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
+import 'package:lebech_property/screens/property_detail_screen/property_detail_screen.dart';
 
 import '../../common/constant/app_colors.dart';
 import '../../common/constant/app_images.dart';
@@ -8,40 +10,45 @@ class SubCategoryListTile extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: [
-        Expanded(
-          flex: 35,
-          child: _imageModule(),
-        ),
-        const SizedBox(height: 20),
-        Expanded(
-          flex: 65,
-          child: SizedBox(
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                _priceModule(),
-                const SizedBox(height: 5),
-                _propertyHeadingModule(),
-                const SizedBox(height: 5),
-                _smallDetailsModule(),
-                const SizedBox(height: 5),
-                _placeModule(),
-                const SizedBox(height: 5),
-                _parkingModule(),
-                const SizedBox(height: 5),
-                _visitModule(),
-                const SizedBox(height: 5),
-                _propertyDetails(),
-                const SizedBox(height: 5),
-                // const SizedBox(height: 5),
-              ],
+    return GestureDetector(
+      onTap: () {
+        Get.to(()=> PropertyDetailScreen());
+      },
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Expanded(
+            flex: 35,
+            child: _imageModule(),
+          ),
+          const SizedBox(height: 20),
+          Expanded(
+            flex: 65,
+            child: SizedBox(
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  _priceModule(),
+                  const SizedBox(height: 5),
+                  _propertyHeadingModule(),
+                  const SizedBox(height: 5),
+                  _smallDetailsModule(),
+                  const SizedBox(height: 5),
+                  _placeModule(),
+                  const SizedBox(height: 5),
+                  _parkingModule(),
+                  const SizedBox(height: 5),
+                  _visitModule(),
+                  const SizedBox(height: 5),
+                  _propertyDetails(),
+                  const SizedBox(height: 5),
+                  // const SizedBox(height: 5),
+                ],
+              ),
             ),
           ),
-        ),
-      ],
+        ],
+      ),
     );
   }
 

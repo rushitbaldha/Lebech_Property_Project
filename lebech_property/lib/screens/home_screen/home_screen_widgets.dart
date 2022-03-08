@@ -5,7 +5,6 @@ import 'package:lebech_property/common/constant/app_colors.dart';
 import 'package:lebech_property/common/constant/app_images.dart';
 import 'package:lebech_property/controllers/home_screen_controller/home_screen_controller.dart';
 import 'package:lebech_property/screens/category_property_screen/category_property_screen.dart';
-import 'package:youtube_player_flutter/youtube_player_flutter.dart';
 
 class BannerModule extends StatelessWidget {
   BannerModule({Key? key}) : super(key: key);
