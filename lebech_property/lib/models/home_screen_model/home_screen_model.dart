@@ -28,7 +28,7 @@ class HomeScreenModel {
   Map<String, dynamic> toJson() => {
     "status": status,
     "message": message,
-    "data": data.toJson(),
+    // "data": data.toJson(),
   };
 }
 
@@ -36,52 +36,52 @@ class Data {
   Data({
     required this.banner,
     required this.favourite,
-    required this.dataSuper,
+    // required this.dataSuper,
     required this.youtube,
-    required this.area,
-    required this.type,
-    required this.favouriteProjects,
-    required this.superProjects,
-    required this.news,
-    required this.feedback,
+    // required this.area,
+    // required this.type,
+    // required this.favouriteProjects,
+    // required this.superProjects,
+    // required this.news,
+    // required this.feedback,
   });
 
   List<Banner> banner;
   List<Favourite> favourite;
-  List<Favourite> dataSuper;
+  // List<Favourite> dataSuper;
   List<Youtube> youtube;
-  List<AreaElement> area;
-  List<Type> type;
-  List<Project> favouriteProjects;
-  List<Project> superProjects;
-  List<News> news;
-  List<dynamic> feedback;
+  // List<AreaElement> area;
+  // List<Type> type;
+  // List<Project> favouriteProjects;
+  // List<Project> superProjects;
+  // List<News> news;
+  // List<dynamic> feedback;
 
   factory Data.fromJson(Map<String, dynamic> json) => Data(
     banner: List<Banner>.from(json["banner"].map((x) => Banner.fromJson(x)) ?? {}),
     favourite: List<Favourite>.from(json["favourite"].map((x) => Favourite.fromJson(x)) ?? {}),
-    dataSuper: List<Favourite>.from(json["super"].map((x) => Favourite.fromJson(x)) ?? {}),
+    // dataSuper: List<Favourite>.from(json["super"].map((x) => Favourite.fromJson(x)) ?? {}),
     youtube: List<Youtube>.from(json["youtube"].map((x) => Youtube.fromJson(x)) ?? {}),
-    area: List<AreaElement>.from(json["area"].map((x) => AreaElement.fromJson(x)) ?? {}),
-    type: List<Type>.from(json["type"].map((x) => Type.fromJson(x)) ?? {}),
-    favouriteProjects: List<Project>.from(json["favourite_projects"].map((x) => Project.fromJson(x)) ?? {}),
-    superProjects: List<Project>.from(json["super_projects"].map((x) => Project.fromJson(x)) ?? {}),
-    news: List<News>.from(json["news"].map((x) => News.fromJson(x)) ?? {}),
-    feedback: List<dynamic>.from(json["feedback"].map((x) => x) ?? {}),
+    // area: List<AreaElement>.from(json["area"].map((x) => AreaElement.fromJson(x)) ?? {}),
+    // type: List<Type>.from(json["type"].map((x) => Type.fromJson(x)) ?? {}),
+    // favouriteProjects: List<Project>.from(json["favourite_projects"].map((x) => Project.fromJson(x)) ?? {}),
+    // superProjects: List<Project>.from(json["super_projects"].map((x) => Project.fromJson(x)) ?? {}),
+    // news: List<News>.from(json["news"].map((x) => News.fromJson(x)) ?? {}),
+    // feedback: List<dynamic>.from(json["feedback"].map((x) => x) ?? {}),
   );
 
-  Map<String, dynamic> toJson() => {
-    "banner": List<dynamic>.from(banner.map((x) => x.toJson())),
-    "favourite": List<dynamic>.from(favourite.map((x) => x.toJson())),
-    "super": List<dynamic>.from(dataSuper.map((x) => x.toJson())),
-    "youtube": List<dynamic>.from(youtube.map((x) => x.toJson())),
-    "area": List<dynamic>.from(area.map((x) => x.toJson())),
-    "type": List<dynamic>.from(type.map((x) => x.toJson())),
-    "favourite_projects": List<dynamic>.from(favouriteProjects.map((x) => x.toJson())),
-    "super_projects": List<dynamic>.from(superProjects.map((x) => x.toJson())),
-    "news": List<dynamic>.from(news.map((x) => x.toJson())),
-    "feedback": List<dynamic>.from(feedback.map((x) => x)),
-  };
+  // Map<String, dynamic> toJson() => {
+  //   "banner": List<dynamic>.from(banner.map((x) => x.toJson())),
+  //   "favourite": List<dynamic>.from(favourite.map((x) => x.toJson())),
+  //   "super": List<dynamic>.from(dataSuper.map((x) => x.toJson())),
+  //   "youtube": List<dynamic>.from(youtube.map((x) => x.toJson())),
+  //   "area": List<dynamic>.from(area.map((x) => x.toJson())),
+  //   "type": List<dynamic>.from(type.map((x) => x.toJson())),
+  //   "favourite_projects": List<dynamic>.from(favouriteProjects.map((x) => x.toJson())),
+  //   "super_projects": List<dynamic>.from(superProjects.map((x) => x.toJson())),
+  //   "news": List<dynamic>.from(news.map((x) => x.toJson())),
+  //   "feedback": List<dynamic>.from(feedback.map((x) => x)),
+  // };
 }
 
 class AreaElement {
@@ -739,7 +739,6 @@ class User {
     "profile_photo_url": profilePhotoUrl,
   };
 }
-
 
 class Project {
   Project({

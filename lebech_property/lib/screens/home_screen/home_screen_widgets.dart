@@ -5,6 +5,9 @@ import 'package:lebech_property/common/constant/app_colors.dart';
 import 'package:lebech_property/common/constant/app_images.dart';
 import 'package:lebech_property/controllers/home_screen_controller/home_screen_controller.dart';
 import 'package:lebech_property/screens/category_property_screen/category_property_screen.dart';
+import 'package:youtube_player_flutter/youtube_player_flutter.dart';
+
+import '../../models/home_screen_model/home_screen_model.dart';
 
 class BannerModule extends StatelessWidget {
   BannerModule({Key? key}) : super(key: key);
@@ -12,20 +15,18 @@ class BannerModule extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Obx(
-      () => CarouselSlider.builder(
-        itemCount: screenController.bannerLists.length,
-        itemBuilder: (context, index, realIndex) {
-          return bannerListTile(index);
-        },
-        options: CarouselOptions(
-            height: 150,
-            autoPlay: true,
-            viewportFraction: 1,
-            onPageChanged: (index, reason) {
-              screenController.activeBannerIndex.value = index;
-            }),
-      ),
+    return CarouselSlider.builder(
+      itemCount: screenController.bannerLists.length,
+      itemBuilder: (context, index, realIndex) {
+        return bannerListTile(index);
+      },
+      options: CarouselOptions(
+          height: 150,
+          autoPlay: true,
+          viewportFraction: 1,
+          onPageChanged: (index, reason) {
+            screenController.activeBannerIndex.value = index;
+          }),
     );
   }
 
@@ -35,7 +36,7 @@ class BannerModule extends StatelessWidget {
       child: Container(
         decoration: BoxDecoration(
           image: DecorationImage(
-            image: AssetImage(screenController.bannerLists[index]),
+            image: NetworkImage(screenController.bannerLists[index].image),
             fit: BoxFit.cover,
 
           ),
@@ -223,8 +224,8 @@ class NewProjectsModule extends StatelessWidget {
 }
 
 class VideoGalleryModule extends StatelessWidget {
-  Widget player;
-  VideoGalleryModule({Key? key, required this.player}) : super(key: key);
+  // Widget player;
+  VideoGalleryModule({Key? key/*, required this.player*/}) : super(key: key);
   final homeScreenController = Get.find<HomeScreenController>();
 
   @override
@@ -238,18 +239,19 @@ class VideoGalleryModule extends StatelessWidget {
         Container(
           height: 180,
           color: Colors.grey,
-          child: player,
-          // child: YoutubePlayerBuilder(
-          //   player: YoutubePlayer(
-          //     controller: homeScreenController.youtubePlayerController!,
-          //   ),
-          //   builder: (context, player) {
-          //     return SizedBox(
-          //       height: 180,
-          //       child: player,
-          //     );
-          //   },
-          // ),
+          // child: player,
+          child: YoutubePlayerBuilder(
+            player: YoutubePlayer(
+              controller: homeScreenController.youtubePlayerController!,
+              showVideoProgressIndicator: true,
+            ),
+            builder: (context, player) {
+              return SizedBox(
+                height: 180,
+                child: player,
+              );
+            },
+          ),
         ),
       ],
     );
@@ -284,7 +286,8 @@ class VideoGalleryModule extends StatelessWidget {
 }
 
 class NewListingsModule extends StatelessWidget {
-  const NewListingsModule({Key? key}) : super(key: key);
+  NewListingsModule({Key? key}) : super(key: key);
+  final screenController = Get.find<HomeScreenController>();
 
   @override
   Widget build(BuildContext context) {
@@ -296,7 +299,7 @@ class NewListingsModule extends StatelessWidget {
         const SizedBox(height: 10),
         SizedBox(
           child: GridView.builder(
-            itemCount: 3,
+            itemCount: /*screenController.favouriteList.length*/ 2,
             shrinkWrap: true,
             physics: const NeverScrollableScrollPhysics(),
             gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
@@ -306,7 +309,7 @@ class NewListingsModule extends StatelessWidget {
               childAspectRatio: 0.75,
             ),
             itemBuilder: (context, i){
-              return _newProjectsGridTile();
+              return _newProjectsGridTile(favouriteItem: screenController.favouriteList[i]);
             },
           ),
         ),
@@ -354,7 +357,8 @@ class NewListingsModule extends StatelessWidget {
     );
   }
 
-  Widget _newProjectsGridTile() {
+  Widget _newProjectsGridTile({required Favourite favouriteItem}) {
+    String img = favouriteItem.propertyImages[0].image;
     return Container(
       padding: const EdgeInsets.all(5),
       child: Material(
@@ -364,22 +368,25 @@ class NewListingsModule extends StatelessWidget {
           padding: const EdgeInsets.only(top: 20, right: 5, left: 5),
           decoration: const BoxDecoration(
             color: Colors.white,
-            // boxShadow: [
-            //   BoxShadow(
-            //     color: Colors.grey,
-            //     blurRadius: 3,
-            //     spreadRadius: 2,
-            //   ),
-            // ],
           ),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.center,
             children: [
-              Container(
+              SizedBox(
                 height: 90,
-                decoration: const BoxDecoration(
-                  image: DecorationImage(
-                      image: AssetImage(AppImages.banner1Img)
+                child: favouriteItem.propertyImages.isEmpty
+                    ? Container(
+                  decoration: const BoxDecoration(
+                    image: DecorationImage(
+                        image: AssetImage(AppImages.banner1Img)
+                    ),
+                  ),
+                )
+                    : Container(
+                  decoration: BoxDecoration(
+                    image: DecorationImage(
+                        image: NetworkImage(img)
+                    ),
                   ),
                 ),
               ),
@@ -593,7 +600,8 @@ class FeaturedPropertiesModule extends StatelessWidget {
 }
 
 class FavouritePropertiesModule extends StatelessWidget {
-  const FavouritePropertiesModule({Key? key}) : super(key: key);
+  FavouritePropertiesModule({Key? key}) : super(key: key);
+  final screenController = Get.find<HomeScreenController>();
 
   @override
   Widget build(BuildContext context) {
@@ -605,7 +613,7 @@ class FavouritePropertiesModule extends StatelessWidget {
         const SizedBox(height: 10),
         SizedBox(
           child: GridView.builder(
-            itemCount: 4,
+            itemCount: /*screenController.favouriteList.length*/ 2,
             shrinkWrap: true,
             physics: const NeverScrollableScrollPhysics(),
             gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
@@ -615,7 +623,7 @@ class FavouritePropertiesModule extends StatelessWidget {
               childAspectRatio: 0.75,
             ),
             itemBuilder: (context, i){
-              return _newProjectsGridTile();
+              return _newProjectsGridTile(favouriteItem: screenController.favouriteList[i]);
             },
           ),
         ),
@@ -658,7 +666,8 @@ class FavouritePropertiesModule extends StatelessWidget {
     );
   }
 
-  Widget _newProjectsGridTile() {
+  Widget _newProjectsGridTile({required Favourite favouriteItem}) {
+    String img = favouriteItem.propertyImages[0].image;
     return Container(
       padding: const EdgeInsets.all(5),
       child: Material(
@@ -679,21 +688,31 @@ class FavouritePropertiesModule extends StatelessWidget {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.center,
             children: [
-              Container(
+              SizedBox(
                 height: 90,
-                decoration: const BoxDecoration(
-                  image: DecorationImage(
-                      image: AssetImage(AppImages.banner1Img)
+                child: favouriteItem.propertyImages.isEmpty
+                ? Container(
+                  decoration: const BoxDecoration(
+                    image: DecorationImage(
+                        image: AssetImage(AppImages.banner1Img)
+                    ),
+                  ),
+                )
+                : Container(
+                  decoration: BoxDecoration(
+                    image: DecorationImage(
+                        image: NetworkImage(img)
+                    ),
                   ),
                 ),
               ),
               const SizedBox(height: 10),
-              const Text(
-                'RAJHANS SYNFONIA',
+              Text(
+                favouriteItem.title,
                 maxLines: 1,
                 // overflow: TextOverflow.ellipsis,
                 style:
-                TextStyle(fontWeight: FontWeight.bold, fontSize: 16),
+                const TextStyle(fontWeight: FontWeight.bold, fontSize: 16),
               ),
               const SizedBox(height: 14),
               Text(
