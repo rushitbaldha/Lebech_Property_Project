@@ -7,17 +7,17 @@ import '../../common/field_validations.dart';
 import '../../controllers/sign_in_screen_controller/sign_in_screen_controller.dart';
 import '../home_screen/home_screen.dart';
 
-class SignInEmailTextFieldModule extends StatelessWidget {
-  SignInEmailTextFieldModule({Key? key}) : super(key: key);
+class SignInPhoneNoTextFieldModule extends StatelessWidget {
+  SignInPhoneNoTextFieldModule({Key? key}) : super(key: key);
   final screenController = Get.find<SignInScreenController>();
 
   @override
   Widget build(BuildContext context) {
     return TextFormField(
-      controller: screenController.emailTextField,
-      keyboardType: TextInputType.emailAddress,
-      decoration: formFieldDecoration(hintText: 'Email Address'),
-      validator: (value) => FieldValidations().validateEmail(value!),
+      controller: screenController.phoneNoTextField,
+      keyboardType: TextInputType.phone,
+      decoration: formFieldDecoration(hintText: 'Mobile No'),
+      validator: (value) => FieldValidations().validateMobile(value!),
     );
   }
 }
@@ -44,9 +44,10 @@ class SignInButtonModule extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
-      onTap: () {
+      onTap: () async {
         if(screenController.formKey.currentState!.validate()){
-          Get.off(()=> HomeScreen());
+          await screenController.userSignInFunction();
+          // Get.off(()=> HomeScreen());
         }
       },
       child: Container(
