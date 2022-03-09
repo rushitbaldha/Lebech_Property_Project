@@ -125,8 +125,10 @@ class CreateAccountButtonModule extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
-      onTap: () {
-        if(screenController.formKey.currentState!.validate()){}
+      onTap: () async {
+        if(screenController.formKey.currentState!.validate()){
+          await screenController.getUserSignUpFunction();
+        }
       },
       child: Container(
         decoration: const BoxDecoration(color: AppColors.mainColor),

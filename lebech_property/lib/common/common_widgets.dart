@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
+import 'package:lebech_property/screens/sign_in_screen/sign_in_screen.dart';
 
 class FormMainHeaderModule extends StatelessWidget {
   final String text;
@@ -41,6 +43,11 @@ PreferredSizeWidget customAppBar({String? title}) {
     backgroundColor: Colors.transparent,
     elevation: 0,
     iconTheme: const IconThemeData(color: Colors.black),
+    actions: [
+      IconButton(onPressed: (){
+        Get.to(() => SignInScreen());
+      }, icon: const Icon(Icons.login_rounded)),
+    ],
   );
 }
 

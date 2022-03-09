@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:lebech_property/screens/sign_up_screen/sign_up_screen.dart';
 
 import '../../common/constant/app_colors.dart';
 import '../../common/field_decorations.dart';
@@ -77,6 +78,31 @@ class ForgotPasswordModule extends StatelessWidget {
             'FORGOTTEN YOUR PASSWORD?'
         ),
       ),
+    );
+  }
+}
+
+class SignUpTextModule extends StatelessWidget {
+  const SignUpTextModule({Key? key}) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return Row(
+      mainAxisAlignment: MainAxisAlignment.center,
+      children: [
+        const Text('New User? '),
+        GestureDetector(
+          onTap: () {
+            Get.off(()=> SignUpScreen());
+          },
+          child: const Text(
+            'SignUp',
+            style: TextStyle(
+              decoration: TextDecoration.underline,
+            ),
+          ),
+        ),
+      ],
     );
   }
 }
