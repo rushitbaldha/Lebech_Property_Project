@@ -1,5 +1,4 @@
 import 'dart:convert';
-
 import 'package:get/get.dart';
 import 'package:lebech_property/common/constant/api_url.dart';
 import 'package:youtube_player_flutter/youtube_player_flutter.dart';
@@ -9,7 +8,6 @@ import '../../models/home_screen_model/home_screen_model.dart';
 
 class HomeScreenController extends GetxController {
   RxBool isLoading = false.obs;
-
   RxInt activeBannerIndex = 0.obs;
   List<Banner> bannerLists = [];
   YoutubePlayerController? youtubePlayerController;

@@ -6,7 +6,7 @@ import '../../common/constant/app_colors.dart';
 import '../../common/field_decorations.dart';
 import '../../common/field_validations.dart';
 import '../../controllers/sign_in_screen_controller/sign_in_screen_controller.dart';
-import '../home_screen/home_screen.dart';
+
 
 class SignInPhoneNoTextFieldModule extends StatelessWidget {
   SignInPhoneNoTextFieldModule({Key? key}) : super(key: key);
@@ -18,6 +18,9 @@ class SignInPhoneNoTextFieldModule extends StatelessWidget {
       controller: screenController.phoneNoTextField,
       keyboardType: TextInputType.phone,
       decoration: formFieldDecoration(hintText: 'Mobile No'),
+      style: const TextStyle(
+        color: Colors.white,
+      ),
       validator: (value) => FieldValidations().validateMobile(value!),
     );
   }
@@ -33,6 +36,9 @@ class SignInPasswordFieldModule extends StatelessWidget {
       controller: screenController.passwordTextField,
       keyboardType: TextInputType.text,
       decoration: formFieldDecoration(hintText: 'Password'),
+      style: const TextStyle(
+        color: Colors.white,
+      ),
       validator: (value) => FieldValidations().validatePassword(value!),
     );
   }
@@ -51,13 +57,20 @@ class SignInButtonModule extends StatelessWidget {
           // Get.off(()=> HomeScreen());
         }
       },
-      child: Container(
-        decoration: const BoxDecoration(color: AppColors.mainColor),
-        child: const Padding(
-          padding: EdgeInsets.all(15),
-          child: Text(
-            'SIGN IN',
-            style: TextStyle(color: Colors.white),
+      child: Material(
+        elevation: 10,
+        borderRadius: BorderRadius.circular(15),
+        child: Container(
+          decoration: BoxDecoration(
+            color: AppColors.mainColor,
+            borderRadius: BorderRadius.circular(15),
+          ),
+          child: const Padding(
+            padding: EdgeInsets.all(15),
+            child: Text(
+              'SIGN IN',
+              style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold),
+            ),
           ),
         ),
       ),

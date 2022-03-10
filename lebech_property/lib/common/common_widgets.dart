@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:lebech_property/common/constant/app_colors.dart';
 import 'package:lebech_property/screens/sign_in_screen/sign_in_screen.dart';
 
 class FormMainHeaderModule extends StatelessWidget {
@@ -13,6 +14,7 @@ class FormMainHeaderModule extends StatelessWidget {
       style: const TextStyle(
         fontSize: 30,
         fontWeight: FontWeight.bold,
+        color: Colors.white,
       ),
     );
   }
@@ -28,7 +30,7 @@ class FormSubHeaderModule extends StatelessWidget {
       text,
       maxLines: 2,
       textAlign: TextAlign.center,
-      style: const TextStyle(fontSize: 16),
+      style: const TextStyle(fontSize: 16, color: Colors.white),
     );
   }
 }
@@ -64,5 +66,14 @@ class HeadingModule extends StatelessWidget {
         fontSize: 24,
       ),
     );
+  }
+}
+
+class CustomCircularProgressIndicatorModule extends StatelessWidget {
+  const CustomCircularProgressIndicatorModule({Key? key}) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return const Center(child: CircularProgressIndicator(color: AppColors.mainColor));
   }
 }

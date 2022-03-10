@@ -1,4 +1,5 @@
 import 'package:carousel_slider/carousel_slider.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:lebech_property/common/constant/app_colors.dart';
@@ -35,10 +36,10 @@ class BannerModule extends StatelessWidget {
       padding: const EdgeInsets.symmetric(horizontal: 10),
       child: Container(
         decoration: BoxDecoration(
+          borderRadius: BorderRadius.circular(15),
           image: DecorationImage(
             image: NetworkImage(screenController.bannerLists[index].image),
             fit: BoxFit.cover,
-
           ),
         ),
       ),
@@ -53,22 +54,23 @@ class BannerIndicatorModule extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Obx(
-        () => Row(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: List.generate(
-              screenController.bannerLists.length,
-                  (index) => Container(
-                    margin: const EdgeInsets.all(4),
-                    width: screenController.activeBannerIndex.value == index ? 14 : 11,
-                    height: screenController.activeBannerIndex.value == index ? 14 : 11,
-                    decoration: BoxDecoration(
-                      color: screenController.activeBannerIndex.value == index
-                          ? AppColors.mainColor
-                          : Colors.grey.shade400,
-                      shape: BoxShape.circle,
-                    ),
-                  )),
+      () => Row(
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: List.generate(
+          screenController.bannerLists.length,
+          (index) => Container(
+            margin: const EdgeInsets.all(4),
+            width: screenController.activeBannerIndex.value == index ? 14 : 11,
+            height: screenController.activeBannerIndex.value == index ? 14 : 11,
+            decoration: BoxDecoration(
+              color: screenController.activeBannerIndex.value == index
+                  ? AppColors.mainColor
+                  : Colors.grey.shade400,
+              shape: BoxShape.circle,
+            ),
+          ),
         ),
+      ),
     );
   }
 }
@@ -78,27 +80,30 @@ class NewProjectsModule extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Column(
-      children: [
-        _headingTextModule(),
-        const SizedBox(height: 10),
-        SizedBox(
-          child: GridView.builder(
-            itemCount: 2,
-            shrinkWrap: true,
-            physics: const NeverScrollableScrollPhysics(),
-            gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-              crossAxisCount: 2,
-              crossAxisSpacing: 10,
-              mainAxisSpacing: 10,
-              childAspectRatio: 0.75,
+    return Padding(
+      padding: const EdgeInsets.symmetric(horizontal: 5),
+      child: Column(
+        children: [
+          _headingTextModule(),
+          const SizedBox(height: 10),
+          SizedBox(
+            child: GridView.builder(
+              itemCount: 2,
+              shrinkWrap: true,
+              physics: const NeverScrollableScrollPhysics(),
+              gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+                crossAxisCount: 2,
+                crossAxisSpacing: 10,
+                mainAxisSpacing: 10,
+                childAspectRatio: 0.75,
+              ),
+              itemBuilder: (context, i) {
+                return _newProjectsGridTile();
+              },
             ),
-            itemBuilder: (context, i){
-              return _newProjectsGridTile();
-            },
           ),
-        ),
-      ],
+        ],
+      ),
     );
   }
 
@@ -143,10 +148,12 @@ class NewProjectsModule extends StatelessWidget {
       child: Material(
         elevation: 10,
         shadowColor: Colors.grey.shade400,
+        borderRadius: BorderRadius.circular(15),
         child: Container(
           padding: const EdgeInsets.only(top: 20, right: 5, left: 5),
-          decoration: const BoxDecoration(
+          decoration: BoxDecoration(
             color: Colors.white,
+            borderRadius: BorderRadius.circular(15),
             // boxShadow: [
             //   BoxShadow(
             //     color: Colors.grey,
@@ -158,11 +165,16 @@ class NewProjectsModule extends StatelessWidget {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.center,
             children: [
-              Container(
-                height: 90,
-                decoration: const BoxDecoration(
-                  image: DecorationImage(
-                    image: AssetImage(AppImages.banner1Img)
+              Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 10),
+                child: Container(
+                  height: 90,
+                  decoration: BoxDecoration(
+                    borderRadius: BorderRadius.circular(15),
+                    image: const DecorationImage(
+                      image: AssetImage(AppImages.banner1Img),
+                      fit: BoxFit.fill,
+                    ),
                   ),
                 ),
               ),
@@ -171,8 +183,7 @@ class NewProjectsModule extends StatelessWidget {
                 'RAJHANS SYNFONIA',
                 maxLines: 1,
                 // overflow: TextOverflow.ellipsis,
-                style:
-                TextStyle(fontWeight: FontWeight.bold, fontSize: 16),
+                style: TextStyle(fontWeight: FontWeight.bold, fontSize: 16),
               ),
               const SizedBox(height: 14),
               Text(
@@ -224,8 +235,7 @@ class NewProjectsModule extends StatelessWidget {
 }
 
 class VideoGalleryModule extends StatelessWidget {
-  // Widget player;
-  VideoGalleryModule({Key? key/*, required this.player*/}) : super(key: key);
+  VideoGalleryModule({Key? key}) : super(key: key);
   final homeScreenController = Get.find<HomeScreenController>();
 
   @override
@@ -236,21 +246,23 @@ class VideoGalleryModule extends StatelessWidget {
         const SizedBox(height: 10),
         _primePropertyHeading(),
         const SizedBox(height: 15),
-        Container(
-          height: 180,
-          color: Colors.grey,
-          // child: player,
-          child: YoutubePlayerBuilder(
-            player: YoutubePlayer(
-              controller: homeScreenController.youtubePlayerController!,
-              showVideoProgressIndicator: true,
+        Padding(
+          padding: const EdgeInsets.symmetric(horizontal: 10),
+          child: Container(
+            height: 180,
+            color: Colors.grey,
+            child: YoutubePlayerBuilder(
+              player: YoutubePlayer(
+                controller: homeScreenController.youtubePlayerController!,
+                showVideoProgressIndicator: true,
+              ),
+              builder: (context, player) {
+                return SizedBox(
+                  height: 180,
+                  child: player,
+                );
+              },
             ),
-            builder: (context, player) {
-              return SizedBox(
-                height: 180,
-                child: player,
-              );
-            },
           ),
         ),
       ],
@@ -266,10 +278,7 @@ class VideoGalleryModule extends StatelessWidget {
       padding: const EdgeInsets.all(10),
       child: const Text(
         'Video Gallery',
-        style: TextStyle(
-          color: AppColors.mainDarkColor,
-          fontSize: 16
-        ),
+        style: TextStyle(color: AppColors.mainDarkColor, fontSize: 16),
       ),
     );
   }
@@ -291,29 +300,33 @@ class NewListingsModule extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Column(
-      children: [
-        const PropertiesTextModule(heading: "Properties"),
-        const SizedBox(height: 10),
-        _headingTextModule(),
-        const SizedBox(height: 10),
-        SizedBox(
-          child: GridView.builder(
-            itemCount: /*screenController.favouriteList.length*/ 2,
-            shrinkWrap: true,
-            physics: const NeverScrollableScrollPhysics(),
-            gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-              crossAxisCount: 2,
-              crossAxisSpacing: 10,
-              mainAxisSpacing: 10,
-              childAspectRatio: 0.75,
+    return Padding(
+      padding: const EdgeInsets.symmetric(horizontal: 5),
+      child: Column(
+        children: [
+          const PropertiesTextModule(heading: "Properties"),
+          const SizedBox(height: 10),
+          _headingTextModule(),
+          const SizedBox(height: 10),
+          SizedBox(
+            child: GridView.builder(
+              itemCount: /*screenController.favouriteList.length*/ 2,
+              shrinkWrap: true,
+              physics: const NeverScrollableScrollPhysics(),
+              gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+                crossAxisCount: 2,
+                crossAxisSpacing: 10,
+                mainAxisSpacing: 10,
+                childAspectRatio: 0.75,
+              ),
+              itemBuilder: (context, i) {
+                return _newProjectsGridTile(
+                    favouriteItem: screenController.favouriteList[i]);
+              },
             ),
-            itemBuilder: (context, i){
-              return _newProjectsGridTile(favouriteItem: screenController.favouriteList[i]);
-            },
           ),
-        ),
-      ],
+        ],
+      ),
     );
   }
 
@@ -341,7 +354,7 @@ class NewListingsModule extends StatelessWidget {
             flex: 20,
             child: GestureDetector(
               onTap: () {
-                Get.to(()=> CategoryPropertyScreen());
+                Get.to(() => CategoryPropertyScreen());
               },
               child: const Text(
                 'View All',
@@ -364,10 +377,12 @@ class NewListingsModule extends StatelessWidget {
       child: Material(
         elevation: 10,
         shadowColor: Colors.grey.shade400,
+        borderRadius: BorderRadius.circular(15),
         child: Container(
           padding: const EdgeInsets.only(top: 20, right: 5, left: 5),
-          decoration: const BoxDecoration(
+          decoration: BoxDecoration(
             color: Colors.white,
+            borderRadius: BorderRadius.circular(15),
           ),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.center,
@@ -376,27 +391,23 @@ class NewListingsModule extends StatelessWidget {
                 height: 90,
                 child: favouriteItem.propertyImages.isEmpty
                     ? Container(
-                  decoration: const BoxDecoration(
-                    image: DecorationImage(
-                        image: AssetImage(AppImages.banner1Img)
-                    ),
-                  ),
-                )
+                        decoration: const BoxDecoration(
+                          image: DecorationImage(
+                              image: AssetImage(AppImages.banner1Img)),
+                        ),
+                      )
                     : Container(
-                  decoration: BoxDecoration(
-                    image: DecorationImage(
-                        image: NetworkImage(img)
-                    ),
-                  ),
-                ),
+                        decoration: BoxDecoration(
+                          image: DecorationImage(image: NetworkImage(img)),
+                        ),
+                      ),
               ),
               const SizedBox(height: 10),
               const Text(
                 'RAJHANS SYNFONIA',
                 maxLines: 1,
                 // overflow: TextOverflow.ellipsis,
-                style:
-                TextStyle(fontWeight: FontWeight.bold, fontSize: 16),
+                style: TextStyle(fontWeight: FontWeight.bold, fontSize: 16),
               ),
               const SizedBox(height: 14),
               Text(
@@ -452,29 +463,32 @@ class FeaturedPropertiesModule extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Column(
-      children: [
-        const PropertiesTextModule(heading: "Properties"),
-        const SizedBox(height: 10),
-        _headingTextModule(),
-        const SizedBox(height: 10),
-        SizedBox(
-          child: GridView.builder(
-            itemCount: 2,
-            shrinkWrap: true,
-            physics: const NeverScrollableScrollPhysics(),
-            gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-              crossAxisCount: 2,
-              crossAxisSpacing: 10,
-              mainAxisSpacing: 10,
-              childAspectRatio: 0.75,
+    return Padding(
+      padding: const EdgeInsets.symmetric(horizontal: 5),
+      child: Column(
+        children: [
+          const PropertiesTextModule(heading: "Properties"),
+          const SizedBox(height: 10),
+          _headingTextModule(),
+          const SizedBox(height: 10),
+          SizedBox(
+            child: GridView.builder(
+              itemCount: 2,
+              shrinkWrap: true,
+              physics: const NeverScrollableScrollPhysics(),
+              gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+                crossAxisCount: 2,
+                crossAxisSpacing: 10,
+                mainAxisSpacing: 10,
+                childAspectRatio: 0.75,
+              ),
+              itemBuilder: (context, i) {
+                return _newProjectsGridTile();
+              },
             ),
-            itemBuilder: (context, i){
-              return _newProjectsGridTile();
-            },
           ),
-        ),
-      ],
+        ],
+      ),
     );
   }
 
@@ -519,10 +533,12 @@ class FeaturedPropertiesModule extends StatelessWidget {
       child: Material(
         elevation: 10,
         shadowColor: Colors.grey.shade400,
+        borderRadius: BorderRadius.circular(15),
         child: Container(
           padding: const EdgeInsets.only(top: 20, right: 5, left: 5),
-          decoration: const BoxDecoration(
+          decoration: BoxDecoration(
             color: Colors.white,
+            borderRadius: BorderRadius.circular(15),
             // boxShadow: [
             //   BoxShadow(
             //     color: Colors.grey,
@@ -537,9 +553,8 @@ class FeaturedPropertiesModule extends StatelessWidget {
               Container(
                 height: 90,
                 decoration: const BoxDecoration(
-                  image: DecorationImage(
-                      image: AssetImage(AppImages.banner1Img)
-                  ),
+                  image:
+                      DecorationImage(image: AssetImage(AppImages.banner1Img)),
                 ),
               ),
               const SizedBox(height: 10),
@@ -547,8 +562,7 @@ class FeaturedPropertiesModule extends StatelessWidget {
                 'RAJHANS SYNFONIA',
                 maxLines: 1,
                 // overflow: TextOverflow.ellipsis,
-                style:
-                TextStyle(fontWeight: FontWeight.bold, fontSize: 16),
+                style: TextStyle(fontWeight: FontWeight.bold, fontSize: 16),
               ),
               const SizedBox(height: 14),
               Text(
@@ -605,29 +619,33 @@ class FavouritePropertiesModule extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Column(
-      children: [
-        const PropertiesTextModule(heading: "Projects"),
-        const SizedBox(height: 10),
-        _headingTextModule(),
-        const SizedBox(height: 10),
-        SizedBox(
-          child: GridView.builder(
-            itemCount: /*screenController.favouriteList.length*/ 2,
-            shrinkWrap: true,
-            physics: const NeverScrollableScrollPhysics(),
-            gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-              crossAxisCount: 2,
-              crossAxisSpacing: 10,
-              mainAxisSpacing: 10,
-              childAspectRatio: 0.75,
+    return Padding(
+      padding: const EdgeInsets.symmetric(horizontal: 5),
+      child: Column(
+        children: [
+          const PropertiesTextModule(heading: "Projects"),
+          const SizedBox(height: 10),
+          _headingTextModule(),
+          const SizedBox(height: 10),
+          SizedBox(
+            child: GridView.builder(
+              itemCount: /*screenController.favouriteList.length*/ 2,
+              shrinkWrap: true,
+              physics: const NeverScrollableScrollPhysics(),
+              gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+                crossAxisCount: 2,
+                crossAxisSpacing: 10,
+                mainAxisSpacing: 10,
+                childAspectRatio: 0.75,
+              ),
+              itemBuilder: (context, i) {
+                return _newProjectsGridTile(
+                    favouriteItem: screenController.favouriteList[i]);
+              },
             ),
-            itemBuilder: (context, i){
-              return _newProjectsGridTile(favouriteItem: screenController.favouriteList[i]);
-            },
           ),
-        ),
-      ],
+        ],
+      ),
     );
   }
 
@@ -673,10 +691,12 @@ class FavouritePropertiesModule extends StatelessWidget {
       child: Material(
         elevation: 10,
         shadowColor: Colors.grey.shade400,
+        borderRadius: BorderRadius.circular(15),
         child: Container(
           padding: const EdgeInsets.only(top: 20, right: 5, left: 5),
-          decoration: const BoxDecoration(
+          decoration: BoxDecoration(
             color: Colors.white,
+            borderRadius: BorderRadius.circular(15),
             // boxShadow: [
             //   BoxShadow(
             //     color: Colors.grey,
@@ -691,20 +711,17 @@ class FavouritePropertiesModule extends StatelessWidget {
               SizedBox(
                 height: 90,
                 child: favouriteItem.propertyImages.isEmpty
-                ? Container(
-                  decoration: const BoxDecoration(
-                    image: DecorationImage(
-                        image: AssetImage(AppImages.banner1Img)
-                    ),
-                  ),
-                )
-                : Container(
-                  decoration: BoxDecoration(
-                    image: DecorationImage(
-                        image: NetworkImage(img)
-                    ),
-                  ),
-                ),
+                    ? Container(
+                        decoration: const BoxDecoration(
+                          image: DecorationImage(
+                              image: AssetImage(AppImages.banner1Img)),
+                        ),
+                      )
+                    : Container(
+                        decoration: BoxDecoration(
+                          image: DecorationImage(image: NetworkImage(img)),
+                        ),
+                      ),
               ),
               const SizedBox(height: 10),
               Text(
@@ -712,7 +729,7 @@ class FavouritePropertiesModule extends StatelessWidget {
                 maxLines: 1,
                 // overflow: TextOverflow.ellipsis,
                 style:
-                const TextStyle(fontWeight: FontWeight.bold, fontSize: 16),
+                    const TextStyle(fontWeight: FontWeight.bold, fontSize: 16),
               ),
               const SizedBox(height: 14),
               Text(
@@ -765,7 +782,9 @@ class FavouritePropertiesModule extends StatelessWidget {
 
 class PropertiesTextModule extends StatelessWidget {
   final String heading;
-  const PropertiesTextModule({Key? key, required this.heading}) : super(key: key);
+
+  const PropertiesTextModule({Key? key, required this.heading})
+      : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -777,10 +796,7 @@ class PropertiesTextModule extends StatelessWidget {
       padding: const EdgeInsets.all(10),
       child: Text(
         heading,
-        style: const TextStyle(
-            color: AppColors.mainDarkColor,
-            fontSize: 16
-        ),
+        style: const TextStyle(color: AppColors.mainDarkColor, fontSize: 16),
       ),
     );
   }

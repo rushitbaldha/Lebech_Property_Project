@@ -130,13 +130,20 @@ class CreateAccountButtonModule extends StatelessWidget {
           await screenController.getUserSignUpFunction();
         }
       },
-      child: Container(
-        decoration: const BoxDecoration(color: AppColors.mainColor),
-        child: const Padding(
-          padding: EdgeInsets.all(15),
-          child: Text(
-            'CREATE ACCOUNT',
-            style: TextStyle(color: Colors.white),
+      child: Material(
+        elevation: 10,
+        borderRadius: BorderRadius.circular(15),
+        child: Container(
+          decoration: BoxDecoration(
+            color: AppColors.mainColor,
+            borderRadius: BorderRadius.circular(15),
+          ),
+          child: const Padding(
+            padding: EdgeInsets.all(15),
+            child: Text(
+              'CREATE ACCOUNT',
+              style: TextStyle(color: Colors.white),
+            ),
           ),
         ),
       ),
